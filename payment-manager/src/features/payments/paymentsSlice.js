@@ -13,12 +13,15 @@ const paymentsSlice = createSlice({
       reducer(state, action) {
         state.items.unshift(action.payload)
       },
-      prepare({ description, amount }) {
+      prepare({ title, memo, targetUserIds, amount, createdByUserId }) {
         return {
           payload: {
             id: nanoid(),
-            description: String(description ?? '').trim(),
+            title: String(title ?? '').trim(),
+            memo: String(memo ?? '').trim(),
+            targetUserIds: Array.isArray(targetUserIds) ? targetUserIds : [],
             amount: Number(amount),
+            createdByUserId: createdByUserId ?? null,
             createdAt: new Date().toISOString(),
           },
         }
