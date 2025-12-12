@@ -2,10 +2,12 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
+import authReducer from '../features/auth/authSlice'
 import paymentsReducer from '../features/payments/paymentsSlice'
 import usersReducer from '../features/users/usersSlice'
 
 const rootReducer = combineReducers({
+  auth: authReducer,
   payments: paymentsReducer,
   users: usersReducer,
 })
@@ -13,7 +15,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'payment-manager',
   storage,
-  whitelist: ['payments', 'users'],
+  whitelist: ['auth', 'payments', 'users'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
